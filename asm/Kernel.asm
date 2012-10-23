@@ -6,15 +6,14 @@ global start
 start:
 
 jmp KernelCode   ; jump to entry point
-
 %include "KernelDisplay.inc"
-
+%include "GlobalCFunctions.inc"
+	
 %define VIDMEM 0xB8000
 
 msgGoodbye db 0x0A, 0x0A, "It is now safe to turn off your computer.", 0x0A, 0
 
 KernelCode:
-
  ;-------------------------------;
  ;   Set registers   
  ;-------------------------------;
