@@ -1,10 +1,12 @@
 #include "mode7.h"
 #include "hal.h"
 #include "mem.h"
-#include "idt.h"
-#include "gdt.h"
 
 int KernelMain () {
+
+  //Initialize HAL
+  hal_initialize();
+
   ClearScreen(0x10);
   SetColor(0b01110000);	
   GotoXY(30,5);
@@ -24,5 +26,8 @@ int KernelMain () {
   //GotoXY(78,24);
   //DisplayString("+-+-+-+-");
   while(1);
+
+  hal_shutdown();
+
   return 0;
 }
