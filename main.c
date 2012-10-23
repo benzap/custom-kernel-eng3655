@@ -13,8 +13,8 @@ int KernelMain () {
   DisplayString((uint8_t*)" <ENGI 3655 Kernel> ");
   SetColor(0b00011111);
   
-  _DivZero();
-  //__asm__ ( "int $0x3" );
+  //_DivZero();
+  __asm__ ( "int $0x3" );
   DisplayString((uint8_t*)"\n\n");
   DisplayString((uint8_t*)"         A fatal exception has not occured at memory location 0x1337.\n");
   DisplayString((uint8_t*)"         The current application will not be terminated.\n");
