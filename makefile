@@ -21,7 +21,7 @@ KERNEL_DEPS = asm/Kernel.asm \
 	      asm/PrintScreen.inc
 
 KERNEL_OBJS = kernel.o mode7.o gdt.o hal.o\
-              idt.o mem.o i86.o main.o 
+              idt.o mem.o i86.o main.o int_handlers.o
 
 ASM_BASE = asm
 C_INCLUDES = includes
@@ -47,6 +47,9 @@ main.o : main.c
 
 mode7.o : mode7.c
 	gcc $(KERNEL_CFLAGS) -I./$(C_INCLUDES) -c -o mode7.o mode7.c
+
+int_handlers.o : int_handlers.c
+	gcc $(KERNEL_CFLAGS) -I./$(C_INCLUDES) -c -o int_handlers.o int_handlers.c
 
 hal.o : hal.c
 	gcc $(KERNEL_CFLAGS) -I./$(C_INCLUDES) -c -o hal.o hal.c

@@ -75,7 +75,7 @@ static void i86_default_handler () {
 	ClearScreen(0x18);
 	GotoXY(0,1);
 	SetColor(0x1e);
-	DisplayString("*** [i86 Hal] i86_default_handler: Unhandled Interrupt ***");
+	DisplayString((uint8_t*) "*** [i86 Hal] i86_default_handler: Unhandled Interrupt ***");
 
 	for(;;);
 }
@@ -120,9 +120,14 @@ uint32_t i86_idt_initialize (uint16_t codeSel) {
 
 	//! register default handlers
 	size_t i;
+	uint16_t _flags = I86_IDT_DESC_PRESENT; //present / abscent
+	_flags += I86_IDT_DESC_RING0; //priviledge
+	_flags += I86_IDT_DESC_INT32; //type interrupt 32-bit
+
+	//set our default handler
 	for (i=0; i<I86_MAX_INTERRUPTS; i++)
-		i86_install_ir (i, I86_IDT_DESC_PRESENT+I86_IDT_DESC_RING0+I86_IDT_DESC_INT32,
-			codeSel, (I86_IRQ_HANDLER)i86_default_handler);
+	  i86_install_ir (i, _flags, codeSel, 
+			  (I86_IRQ_HANDLER)i86_default_handler);
 
 	//! install our idt
 	idt_install ();

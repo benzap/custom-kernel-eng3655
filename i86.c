@@ -15,6 +15,7 @@
 #include <gdt.h>
 #include <idt.h>
 #include <registers.h>
+#include <int_handlers.h>
 
 //============================================================================
 //    IMPLEMENTATION PRIVATE DEFINITIONS / ENUMERATIONS / SIMPLE TYPEDEFS
@@ -53,6 +54,9 @@ uint32_t cpu_initialize () {
 	
 	/* Initialize IDT */
 	i86_idt_initialize (0x8);
+	
+	/* Setup the interrupt handlers */
+	setup_handlers(0x8);
 
 	return 0;
 }
