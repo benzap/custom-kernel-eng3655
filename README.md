@@ -7,7 +7,11 @@ years of doing the same project.
 
 Jon's Github page: https://github.com/jkiv
 
-Jon's Homepage: jkiv.ca
+Jon's Homepage: http://jkiv.ca
 
 A custom kernel developed on a bootable floppy
 
+
+You can develop your own kernel just like this one by following the instructions at
+
+http://www.brokenthorn.com/Resources/OSDev1.html
