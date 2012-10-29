@@ -1,4 +1,3 @@
-
 %ifndef __GlobalCFunctions_INC_INCLUDED__
 %define __GlobalCFunctions_INC_INCLUDED__
 

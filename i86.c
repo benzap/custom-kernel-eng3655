@@ -58,6 +58,9 @@ uint32_t cpu_initialize () {
 	/* Setup the interrupt handlers */
 	setup_handlers(0x8);
 
+	/* Setup Hardware Interrupts */
+	i86_irq_initialize(0x8);
+
 	return 0;
 }
 
