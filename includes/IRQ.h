@@ -7,12 +7,10 @@
 
 //MACROS
 
-#define INIT_IRQ_HANDLER(__IRQ_, __STRING)		\
-  ClearScreen(0x48);					\
+#define INIT_IRQ_HANDLER(__IRQ_)			\
   GotoXY(0,1);						\
   SetColor(0x4e);					\
   DisplayString((uint8_t*) "IRQ: " #__IRQ_ "\n");	\
-  DisplayString((uint8_t*) __STRING);
 
 //Functions
 

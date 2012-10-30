@@ -14,7 +14,7 @@ int KernelMain () {
   SetColor(0b00011111);
   
   //_DivZero();
-  __asm__ ( "int $0x3" );
+  __asm__ ( "sti" );
   DisplayString((uint8_t*)"\n\n");
   DisplayString((uint8_t*)"         A fatal exception has not occured at memory location 0x1337.\n");
   DisplayString((uint8_t*)"         The current application will not be terminated.\n");
