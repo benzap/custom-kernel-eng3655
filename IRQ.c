@@ -61,7 +61,7 @@ void i86_irq_initialize(uint16_t codeSel) {
 
   
   uint16_t _flags = I86_IDT_DESC_PRESENT + I86_IDT_DESC_RING0 + I86_IDT_DESC_INT32;
-  // Set up IDT for IRQs
+  // Set up default IDT for IRQs
   i86_install_ir(32, _flags, codeSel, (I86_IRQ_HANDLER) irq0);
   i86_install_ir(33, _flags, codeSel, (I86_IRQ_HANDLER) irq1);
   i86_install_ir(34, _flags, codeSel, (I86_IRQ_HANDLER) irq2);
@@ -78,96 +78,132 @@ void i86_irq_initialize(uint16_t codeSel) {
   i86_install_ir(45, _flags, codeSel, (I86_IRQ_HANDLER) irq13);
   i86_install_ir(46, _flags, codeSel, (I86_IRQ_HANDLER) irq14);
   i86_install_ir(47, _flags, codeSel, (I86_IRQ_HANDLER) irq15);
-
-  return 0;
 }
 
-//void irq_install_handler(uint32_t irq, 
-//			 void (*handler)(struct isrregs *r)) { 
-//  irq_routines[irq] = handler; 
-//}
+void irq_install_handler(uint32_t irq, 
+			 void (*handler)(struct isrregs *r)) { 
+  irq_routines[irq] = handler; 
+}
+
+void irq_handler(struct isrregs *r) {
+        uint8_t irq_no = r->int_no - 32;
+        
+        //initialize function pointer
+        void (*handler)(struct isrregs *r);
+
+        if (irq_no < IRQ_COUNT)
+        {
+                handler = irq_routines[irq_no];
+                if ((uint32_t) handler != 0)
+                {
+                        handler(r);
+                }
+                else
+                {
+                        // Default handler
+                        DisplayString((uint8_t*) "Handler for IRQ ");
+                        DisplayInteger(irq_no);
+                        DisplayString((uint8_t*) " not set.");
+                }
+
+
+                // Send end of interrupt, EOI
+                outport(IRQ_PRIMARY_PIC_COMMAND_PORT, 0x20);
+
+                if(irq_no > 7)
+                { outport(IRQ_SECONDARY_PIC_COMMAND_PORT, 0x20);}
+                // END of EOI
+
+        }
+        else
+        {
+                DisplayString((uint8_t*) "IRQ ");
+                DisplayInteger(irq_no);
+                DisplayString((uint8_t*) " is an invalid IRQ number.");
+        }
+}
 
 void irq_uninstall_handler(uint32_t irq) { 
   irq_routines[irq] = 0; 
 }
 
-// IRQ handlers
-void irq0() {
-  INIT_IRQ_HANDLER(0);
-  EOF_PIC_DEINIT(0)
-}
-
-void irq1() {
-  INIT_IRQ_HANDLER(1);
-  EOF_PIC_DEINIT(1)
-}
-
-void irq2() {
-  INIT_IRQ_HANDLER(2);
-  EOF_PIC_DEINIT(2)
-}
-
-void irq3() {
-  INIT_IRQ_HANDLER(3);
-  EOF_PIC_DEINIT(3)
-}
-
-void irq4() {
-  INIT_IRQ_HANDLER(4);
-  EOF_PIC_DEINIT(4)
-}
-
-void irq5() {
-  INIT_IRQ_HANDLER(5);
-  EOF_PIC_DEINIT(5)
-}
-
-void irq6() {
-  INIT_IRQ_HANDLER(6);
-  EOF_PIC_DEINIT(6)
-}
-
-void irq7() {
-  INIT_IRQ_HANDLER(7);
-  EOF_PIC_DEINIT(7)
-}
-
-void irq8() {
-  INIT_IRQ_HANDLER(8);
-  EOF_PIC_DEINIT(8)
-}
-
-void irq9() {
-  INIT_IRQ_HANDLER(9);
-  EOF_PIC_DEINIT(9)
-}
-
-void irq10() {
-  INIT_IRQ_HANDLER(10);
-  EOF_PIC_DEINIT(10)
-}
-
-void irq11() {
-  INIT_IRQ_HANDLER(11);
-  EOF_PIC_DEINIT(11)
-}
-
-void irq12() {
-  INIT_IRQ_HANDLER(12);
-  EOF_PIC_DEINIT(12)
-}
-
-void irq13() {
-  INIT_IRQ_HANDLER(13);
-  EOF_PIC_DEINIT(13)
-}
-
-void irq14() {
-  INIT_IRQ_HANDLER(14);
-  EOF_PIC_DEINIT(14)
-}
-
-void irq15() {
-  INIT_IRQ_HANDLER(15);
-  EOF_PIC_DEINIT(15)
-}
+//// IRQ handlers
+//void irq0() {
+//  INIT_IRQ_HANDLER(0);
+//  EOF_PIC_DEINIT(0)
+//}
+//
+//void irq1() {
+//  INIT_IRQ_HANDLER(1);
+//  EOF_PIC_DEINIT(1)
+//}
+//
+//void irq2() {
+//  INIT_IRQ_HANDLER(2);
+//  EOF_PIC_DEINIT(2)
+//}
+//
+//void irq3() {
+//  INIT_IRQ_HANDLER(3);
+//  EOF_PIC_DEINIT(3)
+//}
+//
+//void irq4() {
+//  INIT_IRQ_HANDLER(4);
+//  EOF_PIC_DEINIT(4)
+//}
+//
+//void irq5() {
+//  INIT_IRQ_HANDLER(5);
+//  EOF_PIC_DEINIT(5)
+//}
+//
+//void irq6() {
+//  INIT_IRQ_HANDLER(6);
+//  EOF_PIC_DEINIT(6)
+//}
+//
+//void irq7() {
+//  INIT_IRQ_HANDLER(7);
+//  EOF_PIC_DEINIT(7)
+//}
+//
+//void irq8() {
+//  INIT_IRQ_HANDLER(8);
+//  EOF_PIC_DEINIT(8)
+//}
+//
+//void irq9() {
+//  INIT_IRQ_HANDLER(9);
+//  EOF_PIC_DEINIT(9)
+//}
+//
+//void irq10() {
+//  INIT_IRQ_HANDLER(10);
+//  EOF_PIC_DEINIT(10)
+//}
+//
+//void irq11() {
+//  INIT_IRQ_HANDLER(11);
+//  EOF_PIC_DEINIT(11)
+//}
+//
+//void irq12() {
+//  INIT_IRQ_HANDLER(12);
+//  EOF_PIC_DEINIT(12)
+//}
+//
+//void irq13() {
+//  INIT_IRQ_HANDLER(13);
+//  EOF_PIC_DEINIT(13)
+//}
+//
+//void irq14() {
+//  INIT_IRQ_HANDLER(14);
+//  EOF_PIC_DEINIT(14)
+//}
+//
+//void irq15() {
+//  INIT_IRQ_HANDLER(15);
+//  EOF_PIC_DEINIT(15)
+//}

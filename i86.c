@@ -16,6 +16,8 @@
 #include <idt.h>
 #include <registers.h>
 #include <int_handlers.h>
+#include <IRQ.h>
+#include <PIL.h>
 
 //============================================================================
 //    IMPLEMENTATION PRIVATE DEFINITIONS / ENUMERATIONS / SIMPLE TYPEDEFS
@@ -60,6 +62,9 @@ uint32_t cpu_initialize () {
 
 	/* Setup Hardware Interrupts */
 	i86_irq_initialize(0x8);
+
+	/* Setup PIL Handler for IRQ0 */
+	initPILHandler(0x8);
 
 	return 0;
 }

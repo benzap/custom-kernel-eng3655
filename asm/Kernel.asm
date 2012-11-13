@@ -8,6 +8,7 @@ start:
 jmp KernelCode   ; jump to entry point
 %include "KernelDisplay.inc"
 %include "GlobalCFunctions.inc"
+%include "irq.inc"
 	
 %define VIDMEM 0xB8000
 

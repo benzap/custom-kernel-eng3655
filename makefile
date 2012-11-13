@@ -22,7 +22,7 @@ KERNEL_DEPS = asm/Kernel.asm \
 
 KERNEL_OBJS = kernel.o mode7.o gdt.o hal.o\
               idt.o mem.o i86.o main.o int_handlers.o \
-	      port.o IRQ.o
+	      port.o IRQ.o PIL.o
 
 ASM_BASE = asm
 C_INCLUDES = includes
@@ -72,6 +72,9 @@ i86.o : i86.c
 
 idt.o : idt.c
 	gcc $(KERNEL_CFLAGS) -I./$(C_INCLUDES) -c -o idt.o idt.c
+
+PIL.o : PIL.c
+	gcc $(KERNEL_CFLAGS) -I./$(C_INCLUDES) -c -o PIL.o PIL.c
 
 all: clean boot.bin STAGE2.SYS KERNEL.SYS
 
