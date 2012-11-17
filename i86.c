@@ -53,7 +53,10 @@ uint32_t cpu_initialize () {
 
 	/* Initialize GDT */
 	i86_gdt_initialize ();
-	/* GDT done: Kernel code segment is  0x8, data segment is 0x10, user code segment is 0x18, data segment is 0x20*/
+	/* GDT done: Kernel code segment is  0x8, 
+	   data segment is 0x10, 
+	   user code segment is 0x18, 
+	   data segment is 0x20 */
 	
 	/* Initialize IDT */
 	i86_idt_initialize (0x8);
@@ -68,7 +71,7 @@ uint32_t cpu_initialize () {
 	initPILHandler();
 
 	/* Setup the keyboard handler for IRQ1 */
-	//initKeyboardHandler();
+	initKeyboardHandler();
 
 	return 0;
 }

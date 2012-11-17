@@ -24,7 +24,7 @@ int KernelMain () {
   
     
   GotoXY(0, GetHeight()-1);
-  DisplayString(": ");
+  DisplayString(">>");
   while(1);
 
   hal_shutdown();
