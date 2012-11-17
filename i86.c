@@ -18,6 +18,7 @@
 #include <int_handlers.h>
 #include <IRQ.h>
 #include <PIL.h>
+#include <keyboard.h>
 
 //============================================================================
 //    IMPLEMENTATION PRIVATE DEFINITIONS / ENUMERATIONS / SIMPLE TYPEDEFS
@@ -64,7 +65,10 @@ uint32_t cpu_initialize () {
 	i86_irq_initialize(0x8);
 
 	/* Setup PIL Handler for IRQ0 */
-	initPILHandler(0x8);
+	initPILHandler();
+
+	/* Setup the keyboard handler for IRQ1 */
+	//initKeyboardHandler();
 
 	return 0;
 }

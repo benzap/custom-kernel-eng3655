@@ -48,7 +48,7 @@ void setup_handlers(uint16_t codeSel) {
 		  (I86_IRQ_HANDLER) iHand_Stack_Fault);
 
   i86_install_ir (13, _flags, codeSel, 
-		  (I86_IRQ_HANDLER) iHand_General_Protection_Fault);
+  		  (I86_IRQ_HANDLER) iHand_General_Protection_Fault);
 
   i86_install_ir (14, _flags, codeSel, 
 		  (I86_IRQ_HANDLER) iHand_Page_Fault);

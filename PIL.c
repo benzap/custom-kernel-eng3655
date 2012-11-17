@@ -33,6 +33,10 @@ void PILHandler(struct isrregs *r) {
 }
 
 void drawClock(int hours, int minutes, int seconds) {
+  //get current cursor positon
+  uint32_t prev_xPos = GetXPos();
+  uint32_t prev_yPos = GetYPos();
+
   //move the curser to the top left
   GotoXY(0,0);
   //show hours
@@ -54,4 +58,7 @@ void drawClock(int hours, int minutes, int seconds) {
     DisplayInteger(0);
   }
   DisplayInteger(seconds);
+  
+  //reset the cursor to it's previous position
+  GotoXY(prev_xPos, prev_yPos);
 }

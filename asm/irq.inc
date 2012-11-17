@@ -54,11 +54,11 @@ global irq14
 global irq15
 
 irq0:
-	cli
 	push byte 0
         push byte 32            ; 32 + 0
         jmp irq_common_stub
 irq1:
+	push byte 1
         push byte 33            ; 32 + 1
         jmp irq_common_stub
 irq2:

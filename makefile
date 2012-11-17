@@ -22,7 +22,7 @@ KERNEL_DEPS = asm/Kernel.asm \
 
 KERNEL_OBJS = kernel.o mode7.o gdt.o hal.o\
               idt.o mem.o i86.o main.o int_handlers.o \
-	      port.o IRQ.o PIL.o
+	      port.o IRQ.o PIL.o keyboard.o
 
 ASM_BASE = asm
 C_INCLUDES = includes
@@ -45,6 +45,9 @@ kernel.o : ./$(ASM_BASE)/Kernel.asm
 
 main.o : main.c
 	gcc $(KERNEL_CFLAGS) -I./$(C_INCLUDES)/ -c -o main.o main.c
+
+keyboard.o : keyboard.c
+	gcc $(KERNEL_CFLAGS) -I./$(C_INCLUDES)/ -c -o keyboard.o keyboard.c
 
 IRQ.o : IRQ.c
 	gcc $(KERNEL_CFLAGS) -I./$(C_INCLUDES)/ -c -o IRQ.o IRQ.c
