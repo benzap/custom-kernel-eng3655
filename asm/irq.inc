@@ -67,43 +67,55 @@ irq2:
         push byte 34            ; 32 + 2
         jmp irq_common_stub
 irq3:
-	push bute 3
+	push byte 3
         push byte 35            ; 32 + 3
         jmp irq_common_stub
 irq4:
+	push byte 4
         push byte 36            ; 32 + 4
         jmp irq_common_stub
 irq5:
+	push byte 5
         push byte 37            ; 32 + 5
         jmp irq_common_stub
 irq6:
+	push byte 6
         push byte 38            ; 32 + 6
         jmp irq_common_stub
 irq7:
+	push byte 7
         push byte 39            ; 32 + 7
         jmp irq_common_stub
 irq8:
+	push byte 8
         push byte 40            ; 32 + 8
         jmp irq_common_stub
 irq9:
+	push byte 9
         push byte 41            ; 32 + 9
         jmp irq_common_stub
 irq10:
+	push byte 10
         push byte 42            ; 32 + 10
         jmp irq_common_stub
 irq11:
+	push byte 11
         push byte 43            ; 32 + 11
         jmp irq_common_stub
 irq12:
+	push byte 12
         push byte 44            ; 32 + 12
         jmp irq_common_stub
 irq13:
+	push byte 13
         push byte 45            ; 32 + 13
         jmp irq_common_stub
 irq14:
+	push byte 14
         push byte 46            ; 32 + 14
         jmp irq_common_stub
 irq15:
+	push byte 15
         push byte 47            ; 32 + 15
         jmp irq_common_stub
 
