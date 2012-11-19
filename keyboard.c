@@ -96,20 +96,20 @@ void initKeyboardHandler() {
   KEY_INDEX(0x44, ESCAPE_NONE) = (uint8_t) 0; //F10
   KEY_INDEX(0x45, ESCAPE_NONE) = (uint8_t) 0; //NUMLOCK
   KEY_INDEX(0x46, ESCAPE_NONE) = (uint8_t) 0; //SCROLL LOCK
-  KEY_INDEX(0x47, ESCAPE_NONE) = (uint8_t) 0; //KPAD7
-  KEY_INDEX(0x48, ESCAPE_NONE) = (uint8_t) 0; //KPAD8
-  KEY_INDEX(0x49, ESCAPE_NONE) = (uint8_t) 0; //KPAD9
+  KEY_INDEX(0x47, ESCAPE_NONE) = (uint8_t) '7'; //KPAD7
+  KEY_INDEX(0x48, ESCAPE_NONE) = (uint8_t) '8'; //KPAD8
+  KEY_INDEX(0x49, ESCAPE_NONE) = (uint8_t) '9'; //KPAD9
   KEY_INDEX(0x4A, ESCAPE_NONE) = (uint8_t) '-'; //KPAD-
-  KEY_INDEX(0x4B, ESCAPE_NONE) = (uint8_t) 0; //KPAD4
-  KEY_INDEX(0x4C, ESCAPE_NONE) = (uint8_t) 0; //KPAD5
-  KEY_INDEX(0x4D, ESCAPE_NONE) = (uint8_t) 0; //KPAD6
+  KEY_INDEX(0x4B, ESCAPE_NONE) = (uint8_t) '4'; //KPAD4
+  KEY_INDEX(0x4C, ESCAPE_NONE) = (uint8_t) '5'; //KPAD5
+  KEY_INDEX(0x4D, ESCAPE_NONE) = (uint8_t) '6'; //KPAD6
   KEY_INDEX(0x4E, ESCAPE_NONE) = (uint8_t) '+'; //KPAD+
-  KEY_INDEX(0x4F, ESCAPE_NONE) = (uint8_t) 0; //KPAD1
+  KEY_INDEX(0x4F, ESCAPE_NONE) = (uint8_t) '1'; //KPAD1
 
-  KEY_INDEX(0x50, ESCAPE_NONE) = (uint8_t) 0; //KPAD2
-  KEY_INDEX(0x51, ESCAPE_NONE) = (uint8_t) 0; //KPAD3
-  KEY_INDEX(0x52, ESCAPE_NONE) = (uint8_t) 0; //KPAD0
-  KEY_INDEX(0x53, ESCAPE_NONE) = (uint8_t) 0; //KPAD.
+  KEY_INDEX(0x50, ESCAPE_NONE) = (uint8_t) '2'; //KPAD2
+  KEY_INDEX(0x51, ESCAPE_NONE) = (uint8_t) '3'; //KPAD3
+  KEY_INDEX(0x52, ESCAPE_NONE) = (uint8_t) '0'; //KPAD0
+  KEY_INDEX(0x53, ESCAPE_NONE) = (uint8_t) '.'; //KPAD.
   KEY_INDEX(0x54, ESCAPE_NONE) = (uint8_t) 0; //NULL
   KEY_INDEX(0x55, ESCAPE_NONE) = (uint8_t) 0; //FUNC
   KEY_INDEX(0x56, ESCAPE_NONE) = (uint8_t) 0; //blank
@@ -302,20 +302,20 @@ void initKeyboardHandler() {
   KEY_INDEX(0x44, ESCAPE_CAPS) = (uint8_t) 0; //F10
   KEY_INDEX(0x45, ESCAPE_CAPS) = (uint8_t) 0; //NUMLOCK
   KEY_INDEX(0x46, ESCAPE_CAPS) = (uint8_t) 0; //SCROLL LOCK
-  KEY_INDEX(0x47, ESCAPE_CAPS) = (uint8_t) 0; //KPAD7
-  KEY_INDEX(0x48, ESCAPE_CAPS) = (uint8_t) 0; //KPAD8
-  KEY_INDEX(0x49, ESCAPE_CAPS) = (uint8_t) 0; //KPAD9
+  KEY_INDEX(0x47, ESCAPE_CAPS) = (uint8_t) '7'; //KPAD7
+  KEY_INDEX(0x48, ESCAPE_CAPS) = (uint8_t) '8'; //KPAD8
+  KEY_INDEX(0x49, ESCAPE_CAPS) = (uint8_t) '9'; //KPAD9
   KEY_INDEX(0x4A, ESCAPE_CAPS) = (uint8_t) '-'; //KPAD-
-  KEY_INDEX(0x4B, ESCAPE_CAPS) = (uint8_t) 0; //KPAD4
-  KEY_INDEX(0x4C, ESCAPE_CAPS) = (uint8_t) 0; //KPAD5
-  KEY_INDEX(0x4D, ESCAPE_CAPS) = (uint8_t) 0; //KPAD6
+  KEY_INDEX(0x4B, ESCAPE_CAPS) = (uint8_t) '4'; //KPAD4
+  KEY_INDEX(0x4C, ESCAPE_CAPS) = (uint8_t) '5'; //KPAD5
+  KEY_INDEX(0x4D, ESCAPE_CAPS) = (uint8_t) '6'; //KPAD6
   KEY_INDEX(0x4E, ESCAPE_CAPS) = (uint8_t) '+'; //KPAD+
-  KEY_INDEX(0x4F, ESCAPE_CAPS) = (uint8_t) 0; //KPAD1
+  KEY_INDEX(0x4F, ESCAPE_CAPS) = (uint8_t) '1'; //KPAD1
 
-  KEY_INDEX(0x50, ESCAPE_CAPS) = (uint8_t) 0; //KPAD2
-  KEY_INDEX(0x51, ESCAPE_CAPS) = (uint8_t) 0; //KPAD3
-  KEY_INDEX(0x52, ESCAPE_CAPS) = (uint8_t) 0; //KPAD0
-  KEY_INDEX(0x53, ESCAPE_CAPS) = (uint8_t) 0; //KPAD.
+  KEY_INDEX(0x50, ESCAPE_CAPS) = (uint8_t) '2'; //KPAD2
+  KEY_INDEX(0x51, ESCAPE_CAPS) = (uint8_t) '3'; //KPAD3
+  KEY_INDEX(0x52, ESCAPE_CAPS) = (uint8_t) '0'; //KPAD0
+  KEY_INDEX(0x53, ESCAPE_CAPS) = (uint8_t) '.'; //KPAD.
   KEY_INDEX(0x54, ESCAPE_CAPS) = (uint8_t) 0; //NULL
   KEY_INDEX(0x55, ESCAPE_CAPS) = (uint8_t) 0; //FUNC
   KEY_INDEX(0x56, ESCAPE_CAPS) = (uint8_t) 0; //blank
@@ -432,6 +432,7 @@ void initKeyboardHandler() {
   KEY_INDEX(0x5E, ESCAPE_SHIFT_CAPS) = (uint8_t) 0;
   KEY_INDEX(0x5F, ESCAPE_SHIFT_CAPS) = (uint8_t) 0;
 
+  KEY_INDEX(0x35, ESCAPE_E0) = (uint8_t) '//';
   KEY_INDEX(0x48, ESCAPE_E0) = (uint8_t) '^';
   KEY_INDEX(0x4B, ESCAPE_E0) = (uint8_t) '<';
   KEY_INDEX(0x4D, ESCAPE_E0) = (uint8_t) '>';
@@ -459,20 +460,12 @@ void keyboardHandler(struct isrregs *r) {
 
   //receive byte from keyboard
   KeyScanCode scancode = getKeyboardOutput();
-  
+
   //first determine if the key being pressed is an escape
-  uint8_t escapeCode = ESCAPE_NONE;
+  static uint8_t escapeCode = ESCAPE_NONE;
 
   if (!scancode.released) {
     switch (scancode.keycode) {
-
-    case KEY_ESCAPE0:
-      escapes.E0 = 1;
-      return;
-
-    case KEY_ESCAPE1:
-      escapes.E1 = 1;
-      return;
 
     case KEY_CAPSLOCK:
       if (leds.caps) {
@@ -517,7 +510,9 @@ void keyboardHandler(struct isrregs *r) {
     }
 
     //override all other codes if we get E0 or E1
-    if (escapes.E0) escapeCode = ESCAPE_E0;
+    if (escapes.E0) {
+      escapeCode = ESCAPE_E0;
+    }
     if (escapes.E1) escapeCode = ESCAPE_E1;
 
     //if the value isn't an escape, register that we pressed down the given key
@@ -540,13 +535,13 @@ void keyboardHandler(struct isrregs *r) {
     switch (scancode.keycode) {
 
     case KEY_ESCAPE0:
-      escapes.E0 = 0;
-      //escapeCode = ESCAPE_NONE;
+    case KEY_ESCAPE0_OLD:
+      escapes.E0 = !escapes.E0;
       return;
 
     case KEY_ESCAPE1:
-      escapes.E1 = 0;
-      //escapeCode = ESCAPE_NONE;
+    case KEY_ESCAPE1_OLD:
+      escapes.E1 = !escapes.E1;
       return;
 
     case KEY_CAPSLOCK:
@@ -554,17 +549,10 @@ void keyboardHandler(struct isrregs *r) {
 
     case KEY_LSHIFT:
       escapes.LSHIFT = 0;
-      if (leds.caps) {
-	escapeCode = ESCAPE_CAPS;
-      }
-      else {
-	escapeCode = ESCAPE_NONE;
-      }
       return;
 
     case KEY_RSHIFT:
       escapes.RSHIFT = 0;
-      escapeCode = ESCAPE_NONE;
       return;
 
     case KEY_LCTRL:

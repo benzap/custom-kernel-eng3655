@@ -93,7 +93,9 @@
 #define KEY_F11      0x57
 #define KEY_F12      0x58
 
-#define KEY_ESCAPE0  0xE0
-#define KEY_ESCAPE1  0xE1
+#define KEY_ESCAPE0  0x60
+#define KEY_ESCAPE0_OLD 0xE0
+#define KEY_ESCAPE1  0x61
+#define KEY_ESCAPE1_OLD 0xE1
 
 #endif //SCANCODE_H
