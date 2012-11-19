@@ -63,9 +63,11 @@ irq1:
         push byte 33            ; 32 + 1
         jmp irq_common_stub
 irq2:
+	push byte 2
         push byte 34            ; 32 + 2
         jmp irq_common_stub
 irq3:
+	push bute 3
         push byte 35            ; 32 + 3
         jmp irq_common_stub
 irq4:
