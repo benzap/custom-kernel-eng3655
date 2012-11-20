@@ -477,6 +477,26 @@ void keyboardHandler(struct isrregs *r) {
       updateKeyboardLEDs(leds);
       return;
 
+    case KEY_NUMLOCK:
+      if (leds.num) {
+	leds.num = 0;
+      }
+      else {
+	leds.num = 1;
+      }
+      updateKeyboardLEDs(leds);
+      return;
+
+    case KEY_SCROLL:
+      if (leds.scroll) {
+	leds.scroll = 0;
+      }
+      else {
+	leds.scroll = 1;
+      }
+      updateKeyboardLEDs(leds);
+      return;
+
     case KEY_LSHIFT:
       escapes.LSHIFT = 1;
       return;
@@ -523,12 +543,12 @@ void keyboardHandler(struct isrregs *r) {
       DisplayChar(KEY_INDEX(scancode.keycode, escapeCode));
     }
     else {
-      DisplayInteger(scancode.keycode);
-      DisplayChar(':');
-      DisplayInteger(KEY_INDEX(scancode.keycode, escapeCode));
-      DisplayChar(':');
-      DisplayInteger(escapeCode);
-      DisplayChar(' ');
+      //DisplayInteger(scancode.keycode);
+      //DisplayChar(':');
+      //DisplayInteger(KEY_INDEX(scancode.keycode, escapeCode));
+      //DisplayChar(':');
+      //DisplayInteger(escapeCode);
+      //DisplayChar(' ');
     }
   }
   else {
@@ -542,9 +562,6 @@ void keyboardHandler(struct isrregs *r) {
     case KEY_ESCAPE1:
     case KEY_ESCAPE1_OLD:
       escapes.E1 = !escapes.E1;
-      return;
-
-    case KEY_CAPSLOCK:
       return;
 
     case KEY_LSHIFT:
@@ -569,9 +586,30 @@ void keyboardHandler(struct isrregs *r) {
   return;
 }
 
+keyboardStatus getKeyboardStatus() {
+  keyboardStatus status;
+  uint8_t rawOutput = inportb((uint16_t)0x64);
+  
+  status.read = (1 & rawOutput) ? 1 : 0;
+  status.write = (2 & rawOutput) ? 1 : 0;
+
+  return status;
+}
+
+uint8_t getRawKeyboardOutput() {
+  keyboardStatus status;
+  // make sure the output buffer is full before
+  // we read from it.
+  do {
+    status = getKeyboardStatus();
+  } while (!status.read);
+
+  return inportb((uint16_t)0x60);
+}
+
 KeyScanCode getKeyboardOutput() {
   //grab the output from the keyboard controller
-  uint8_t keyboardOutput = inportb((uint16_t)0x60);
+  uint8_t keyboardOutput = getRawKeyboardOutput();
   
   //convert it into the KeyScanCode structure
   KeyScanCode scancode;
@@ -585,5 +623,34 @@ KeyScanCode getKeyboardOutput() {
 }
 
 void updateKeyboardLEDs(keyLEDs leds) {
+  keyboardStatus status;
 
+  //prepare the keyboard to recieve LED status indicators
+  do {
+    status = getKeyboardStatus();
+  } while (status.write);
+  outportb((uint16_t)0x60,(uint8_t)0xED);
+
+  //outport to LEDs, prepare the bits to send
+  uint8_t outValues = leds.scroll;
+  outValues |= (leds.num) ? 2 : 0;
+  outValues |= (leds.caps) ? 4 : 0;
+ 
+  //check buffer, send to the keyboard
+  do {
+    status = getKeyboardStatus();
+  } while (status.write);
+  outportb((uint16_t)0x60,outValues);
+ 
+  //recieve the ack
+  uint8_t output = getRawKeyboardOutput();
+  //DisplayInteger(output);
+
+  if (output == 0xFA) {
+    return;
+  }
+  else {
+    //DisplayChar('E');
+    return;
+  }
 }

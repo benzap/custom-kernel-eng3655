@@ -97,7 +97,7 @@ void ScrollUp()
 	do	
 	{
 		*to_memory++ = (uint8_t) ' ';
-		*to_memory++ = (uint8_t) 0;
+		*to_memory++ = (uint8_t) 0b00011111;
 	} while(to_memory >= (uint8_t*) VID_MEMORY &&
 		to_memory < (uint8_t*) VID_MEMORY + 2*COLS*LINES);
 

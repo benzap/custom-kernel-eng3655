@@ -26,6 +26,8 @@
 //**********
 //typedef
 //**********
+
+//structure representing escapes for keymapping
 typedef struct escapes_struct {
   uint8_t E0 : 1;
   uint8_t E1 : 1;
@@ -37,16 +39,25 @@ typedef struct escapes_struct {
   uint8_t RALT : 1;
 } Escapes;
 
+//structure representing the LEDs on the keyboard
 typedef struct keyLEDs_struct {
   uint8_t scroll : 1;
   uint8_t caps : 1;
   uint8_t num : 1;
 } keyLEDs;
 
+//structure which represents the output scancode
+//broken down into whether it has been released or not
 typedef struct keyScanCode_struct {
   uint8_t released : 1;
   uint8_t keycode : 7;
 } KeyScanCode;
+
+//represents the keyboard status register
+typedef struct keyboardStatus_struct {
+  uint8_t read : 1;
+  uint8_t write : 1;
+} keyboardStatus;
 
 //**************
 //functions
@@ -60,9 +71,18 @@ void keyboardHandler(struct isrregs*);
 
 //keyboard functions
 
-//returns the key scancode
+
+//returns the status of the keyboard in the form of a structure
+keyboardStatus getKeyboardStatus();
+
+//returns the raw value from the keyboard
+uint8_t getRawKeyboardOutput();
+
+//returns the key scancode in the form of a KeyScanCode struct
 KeyScanCode getKeyboardOutput();
 
+//updates the keyboard LEDs based on the passed keyLEDs structure
+//passed
 void updateKeyboardLEDs(keyLEDs leds);
 
 #endif //END KEYBOARD_H
