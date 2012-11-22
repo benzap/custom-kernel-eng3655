@@ -533,7 +533,10 @@ void keyboardHandler(struct isrregs *r) {
     if (escapes.E0) {
       escapeCode = ESCAPE_E0;
     }
-    if (escapes.E1) escapeCode = ESCAPE_E1;
+
+    if (escapes.E1) {
+      escapeCode = ESCAPE_E1;
+    }
 
     //if the value isn't an escape, register that we pressed down the given key
     KEYPRESS_INDEX(scancode.keycode, escapeCode) = 1;
@@ -556,12 +559,12 @@ void keyboardHandler(struct isrregs *r) {
 
     case KEY_ESCAPE0:
     case KEY_ESCAPE0_OLD:
-      escapes.E0 = !escapes.E0;
+      escapes.E0 = 1;
       return;
 
     case KEY_ESCAPE1:
     case KEY_ESCAPE1_OLD:
-      escapes.E1 = !escapes.E1;
+      escapes.E1 = 1;
       return;
 
     case KEY_LSHIFT:
@@ -582,7 +585,13 @@ void keyboardHandler(struct isrregs *r) {
     }
     
     KEYPRESS_INDEX(scancode.keycode, escapeCode) = 0;
-  }
+  } 
+  
+  //upon finishing, we reset the escapes to zero
+  escapes.E0 = 0;
+  escapes.E1 = 0;
+  
+
   return;
 }
 

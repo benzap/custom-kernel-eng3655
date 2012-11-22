@@ -16,6 +16,7 @@ void GotoXY(uint32_t x, uint32_t y)
 {
 	_xPos = x;
 	_yPos = y;
+	MoveCursor();
 }
 
 
