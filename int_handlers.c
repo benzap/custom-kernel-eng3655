@@ -1,6 +1,23 @@
 #include <int_handlers.h>
 #include <idt.h>
 #include <mode7.h>
+#include <port.h>
+
+//defines
+#define INT_PRIMARY_PIC_COMMAND_PORT 0x20
+#define INT_PRIMARY_PIC_DATA_PORT 0x21
+
+#define INT_SECONDARY_PIC_COMMAND_PORT 0xA0
+#define INT_SECONDARY_PIC_DATA_PORT 0xA1
+
+#define INT_ICW1 0x11
+#define INT_ICW2_PRIMARY_PIC 32
+#define INT_ICW2_SECONDARY_PIC 40
+#define INT_ICW3_PRIMARY_PIC 0x04
+#define INT_ICW3_SECONDARY_PIC 0x02
+#define INT_ICW4 0x01
+
+void *int_routines[INT_COUNT];
 
 void setup_handlers(uint16_t codeSel) {
   uint16_t _flags = I86_IDT_DESC_PRESENT; //present / abscent
@@ -9,7 +26,7 @@ void setup_handlers(uint16_t codeSel) {
   
   //Divide by Zero Handler IRQ: 0
   i86_install_ir (0, _flags, codeSel, 
-		  (I86_IRQ_HANDLER) iHand_DivideByZero);
+		  (I86_IRQ_HANDLER) int0);
 
   i86_install_ir (1, _flags, codeSel, 
 		  (I86_IRQ_HANDLER) iHand_Debug_SingleStep);
@@ -71,11 +88,74 @@ void setup_handlers(uint16_t codeSel) {
 		    (I86_IRQ_HANDLER) iHand_Reserved_Intel);  
   }
 
+  int_install_handler(0, iHand_DivideByZero);
+
+}
+
+void int_install_handler(uint32_t _int, 
+			 void (*handler)(struct isrregs *r)) { 
+  int_routines[_int] = handler; 
+}
+
+void int_handler(struct isrregs *r) {        
+        //initialize function pointer
+  uint8_t int_no = r->int_no;
+  void (*handler)(struct isrregs *r);
+  
+  if (int_no < INT_COUNT)
+    {
+      handler = int_routines[int_no];
+      if ((uint32_t) handler != 0)
+	{
+	  handler(r);
+	}
+      else
+	{
+	  // Default handler
+	  DisplayString((uint8_t*) "Handler for INT ");
+	  DisplayInteger(int_no);
+	  DisplayString((uint8_t*) " not set.");
+	}
+
+      // Send end of interrupt, EOI
+      outport(INT_PRIMARY_PIC_COMMAND_PORT, 0x20);
+
+      if(int_no > 7)
+      { outport(INT_SECONDARY_PIC_COMMAND_PORT, 0x20);}
+      // END of EOI
+
+    }
+  else
+    {
+      DisplayString((uint8_t*) "INT ");
+      DisplayInteger(int_no);
+      DisplayString((uint8_t*) " is an invalid INT number.");
+    }
 }
 
 // Divide By Zero IRQ: 0
-static void iHand_DivideByZero() {
-  INIT_HANDLER(0, "Divide By Zero");
+static void iHand_DivideByZero(struct isrregs *r) {
+  static uint8_t count = 0;
+  count++;
+  
+  //set the color and display message with count
+  SetColor(0x14);
+  DisplayString("Division By Zero Error: ");
+  DisplayInteger(count);
+
+  //reset from the division
+  r->eax = 0;
+  r->edx = 0;
+
+  //clear the flags
+  r->eflags = 0;
+
+  //reset the color
+  SetColor(0x12);
+
+  //increment instruction pointer
+  r->eip += 2;
+  return;
 }
 
 // Debugger Single Step IRQ: 1

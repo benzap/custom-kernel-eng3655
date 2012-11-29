@@ -4,8 +4,11 @@
 // INCLUDES
 
 #include <stdint.h>
+#include <registers.h>
 
 // MACROS
+
+#define INT_COUNT 32
 
 #define INIT_HANDLER(__IRQ_, __STRING)					\
   ClearScreen(0x48);							\
@@ -18,10 +21,17 @@
 
 // FUNCTIONS
 
+void int_handler(struct isrregs *r);
+
+void int_install_handler(uint32_t _int, 
+			 void (*handler)(struct isrregs *r));
+
+extern void int0();
+
 void setup_handlers(uint16_t codeSel);
 
 // Divide By Zero IRQ: 0
-static void iHand_DivideByZero();
+static void iHand_DivideByZero(struct isrregs *r);
 
 // Debugger Single Step IRQ: 1
 static void iHand_Debug_SingleStep();
