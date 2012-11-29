@@ -33,13 +33,13 @@ int_common_stub:
 	popa
 
     	add esp, 8
-	sti
+	;sti
     	iret	
 
 global int0
 
 int0:
-	cli
+	;cli
 	push byte 0
 	push byte 0
 	jmp int_common_stub

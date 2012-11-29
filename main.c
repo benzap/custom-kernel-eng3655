@@ -24,15 +24,15 @@ int KernelMain () {
   
     
   GotoXY(0, GetHeight()-1);
-  DisplayString(">>");
 
   //Start of test Divide by Zero
   
   SetColor(0x12);
   DisplayString("Start of Divisions");
-  DisplayInteger(6/0.);
   DisplayString("\n");
-  DisplayInteger(5/1.);
+  DisplayInteger(6/0);
+  DisplayString("\n");
+  DisplayInteger(5/1);
   DisplayString("\n");
   DisplayInteger(6/3);
   DisplayString("\n");

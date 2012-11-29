@@ -118,10 +118,10 @@ void int_handler(struct isrregs *r) {
 	}
 
       // Send end of interrupt, EOI
-      outport(INT_PRIMARY_PIC_COMMAND_PORT, 0x20);
+      //outport(INT_PRIMARY_PIC_COMMAND_PORT, 0x20);
 
-      if(int_no > 7)
-      { outport(INT_SECONDARY_PIC_COMMAND_PORT, 0x20);}
+      //if(int_no > 7)
+      //{ outport(INT_SECONDARY_PIC_COMMAND_PORT, 0x20);}
       // END of EOI
 
     }
@@ -140,8 +140,9 @@ static void iHand_DivideByZero(struct isrregs *r) {
   
   //set the color and display message with count
   SetColor(0x14);
-  DisplayString("Division By Zero Error: ");
+  DisplayString("Division By Zero Error: (");
   DisplayInteger(count);
+  DisplayString(")\n");
 
   //reset from the division
   r->eax = 0;
