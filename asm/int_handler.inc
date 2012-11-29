@@ -33,7 +33,7 @@ int_common_stub:
 	popa
 
     	add esp, 8
-	;sti
+	sti
     	iret	
 
 global int0

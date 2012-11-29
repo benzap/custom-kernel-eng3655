@@ -118,10 +118,10 @@ void int_handler(struct isrregs *r) {
 	}
 
       // Send end of interrupt, EOI
-      //outport(INT_PRIMARY_PIC_COMMAND_PORT, 0x20);
+      outport(INT_PRIMARY_PIC_COMMAND_PORT, 0x20);
 
-      //if(int_no > 7)
-      //{ outport(INT_SECONDARY_PIC_COMMAND_PORT, 0x20);}
+      if(int_no > 7)
+      { outport(INT_SECONDARY_PIC_COMMAND_PORT, 0x20);}
       // END of EOI
 
     }
